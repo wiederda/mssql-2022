@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: "mssql2022"
+    container_name: mssql-2022
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      SA_PASSWORD: ""
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+     - "1433:1433"
+    volumes: 
+    - MSSQL_data:/var/opt/mssql/data
+    - MSSQL_log:/var/opt/mssql/log
+    - MSSQL_secrets:/var/opt/mssql/secrets
+    - MSSQL_backup:/var/opt/mssql/backup
