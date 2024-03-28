@@ -6,7 +6,7 @@ RUN apt-get update -y && apt-get upgrade -y \
 && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 && add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list)" \
 && apt-get -y update \
-&& apt-get -y install mssql-server mssql-tools unixodbc-dev \
+&& apt-get -y install mssql-server \
 && userdel mssql \
 && useradd -M -s /bin/bash -u 10001 -g 0 mssql \
 && mkdir -p -m 770 /var/opt/mssql && chgrp -R 0 /var/opt/mssql \
