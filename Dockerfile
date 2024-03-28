@@ -6,7 +6,7 @@ RUN apt-get update -y && apt-get upgrade -y \
 && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 && add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list)" \
 && apt-get -y update \
-&& apt-get -y install mssql-server \
+&& apt-get -y install mssql-server mssql-tools unixodbc-dev \
 && userdel mssql \
 && useradd -M -s /bin/bash -u 10001 -g 0 mssql \
 && mkdir -p -m 770 /var/opt/mssql && chgrp -R 0 /var/opt/mssql \
@@ -28,9 +28,6 @@ RUN apt-get update -y && apt-get upgrade -y \
 && echo -e "# mssql libs\n/opt/mssql/lib" >> /etc/ld.so.conf.d/mssql.conf \
 && ldconfig \
 && apt-get -y remove wget
-
-# Setze die Standard Shell, die beim Ausführen des Containers verwendet wird
-SHELL ["/bin/bash", "-c"] 
 
 USER mssql
 CMD ["/opt/mssql/bin/sqlservr"]
